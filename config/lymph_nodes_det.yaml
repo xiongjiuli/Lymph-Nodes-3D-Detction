@@ -1,0 +1,103 @@
+# Config file for AttnFPN-def-DETR
+
+# General training
+experiment_name: focal mse loss 
+device: cuda
+val_interval: 1
+seed: 1
+num_classes : 1
+save_frequence: 5
+# mode
+debug_mode: False # use the 200 data training, 50 data validation, testing
+train_overfit: False # use one data trianing, validation, testing
+best_loss: 3000.
+
+train_overfit_path: /public_bme/data/xiongjl/lymph_det/csv_files/train_overfit_names.csv
+epochs: 30
+lr: 1e-3
+
+save_for_see: True
+
+# Scheduler
+scheduler_steps: 35
+gamma: 0.1
+clip_max_norm: 1000
+
+# Data
+bbox_padding: 1
+patch_size: [128, 128, 128]
+# patch_size: [224, 224, 224]  / [160, 160, 160] / [128, 128, 128]
+use_center_or_randomly_rate:  0.4 # 0.5
+data_type: no_masked
+data_number: all  # all or not all
+
+# GT path file name
+masked_200_training_gt: /public_bme/data/xiongjl/lymph_det/plot/bbox_txt/gt/masked_train_groundtruths
+masked_50_testing_gt: /public_bme/data/xiongjl/lymph_det/plot/bbox_txt/gt/masked_groundtruths
+whole_200_training_gt: /public_bme/data/xiongjl/lymph_det/plot/bbox_txt/gt/whole_train_groundtruths
+whole_50_testing_gt: /public_bme/data/xiongjl/lymph_det/plot/bbox_txt/gt/whole_groundtruths
+overfit_1_training_gt: /public_bme/data/xiongjl/lymph_det/plot/bbox_txt/gt/overfit_groundtruths
+
+freeze: False
+cascade:
+  cascade: False
+  eval: False
+  confi: 0.6
+  stage_one_model_path: /public_bme/data/xiongjl/lymph_det/runs/atten_unet/1231191120_model_choose_0.885_82_stageone_loss.pt
+  stage_two_model_path: /public_bme/data/xiongjl/lymph_det/runs/atten_unet/1206163827_model_last_60.56.pt
+cascade_hmap_threshold: 0.3 # 这个时候最好修改一下这个lr，让之小一点
+
+centernet_point: False
+resume: /public_bme/data/xiongjl/lymph_det/runs/ATF_1mse/0613165702_model_best_0.7511_9.pt
+model_name: ATF_1mse
+# swin3d / unetr / res101 / swin3d_fpn / 3d_unet / unetpp / atten_unet / merge_det_seg / atten_unet_3 / atten_unet_2 /swin_unetr_1
+#  / atten_unet_2_focal_mse_loss /merge_det_seg_input / merge_det_seg_input_onlyresult / swinunetr_nnunet_merge /atten_unet_point /unetr_point
+channels: 2
+# Path
+root_path : /public_bme/data/xiongjl/lymph_det/
+lymph_nodes_data_path: /public_bme/data/xiongjl/lymph_nodes/
+csv_names_root_path: /public_bme/data/xiongjl/lymph_det/csv_files/
+image_npy_path: /public_bme/data/xiongjl/lymph_nodes/
+log_path: /public_bme/data/xiongjl/lymph_det/logfile/
+image_save_path: /public_bme/data/xiongjl/lymph_det/
+
+# Dataloader
+batch_size: 1
+batch_size_true: 4
+shuffle: True
+num_workers: 0
+
+# Hungarian matching
+set_cost_class: 2
+set_cost_bbox: 5
+set_cost_giou: 2
+
+# Losses
+pos_neg_threshold: 0.99
+pos_loss_weight_int: 1.
+loss_coefs:  # Detection
+  origin_hmap: 0.
+  weight_mse_loss: 0.
+  mse: 1.
+  offset: 1. 
+  seg_loss: 0. 
+  regression_hmap: 0. 
+  whd: 0.1
+  pos_weight: 2. 
+  neg_weight: 1.
+
+point_weight: 4
+
+# evaluator
+evaluator_threshold: 50
+overlap: [15, 15, 15]
+confidence: 0.05
+test_training_mode_name_path: /public_bme/data/xiongjl/lymph_det/csv_files/part_testing_trainingnames.csv
+test_testing_mode_name_path: /public_bme/data/xiongjl/lymph_det/csv_files/part_testing_names.csv
+test_mode_name_path: /public_bme/data/xiongjl/lymph_det/csv_files/testing_names.csv
+iou_confi: 0.01
+ap_confi: 0.35
+
+# decode_bbox
+decode_box_kernel_size: 9
+nms_threshold: 0.1

@@ -1,0 +1,26 @@
+#!/bin/bash
+#SBATCH --job-name=a100
+#SBATCH --partition=bme_gpu 
+#SBATCH --output=./job_log/%j_gpuout.out
+#SBATCH --error=./job_log/%j_gpuoerr.out
+#SBATCH -N 1
+#SBATCH -n 4    
+#SBATCH --mem 80G
+#SBATCH --gres=gpu:1
+#SBATCH -t 48:00:00
+ 
+
+
+echo ${SLURM_JOB_NODELIST}$
+echo start on $(data)
+# python train_v1.py
+# sleep 369200000
+python evaluator_v1.py
+# python /public_bme/data/xiongjl/lymph_det/models/swin_unetr_nnunet.py
+
+# python get_nnunet_result_form_pbm.py
+# python evaluator_v2_merge.py
+# python get_nnunet_hard_sample2csv_training_data.py
+# python get_stageone_result.py
+# python plot/sample_2_merge.py
+echo end on $(data)
