@@ -27,3 +27,9 @@ inference:
 ```
 python evaluator_v1.py
 ```
+
+### learning*
+
+- All variables from all files should be placed into a single YAML file, which will make it easier for others to reproduce your work and facilitate collaboration between academia and industry.
+- The code should be well-structured and appropriately commented. When writing code, consider its generality and reusability.
+- The preprocessing, training, and inference processes should be organized separately and clearly. Write the README file in advance.
