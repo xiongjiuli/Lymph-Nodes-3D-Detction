@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=nnunet_hard_samples_mining
+#SBATCH --job-name=...
 #SBATCH --partition=bme_cpu
 #SBATCH --cpus-per-task=4
 #SBATCH --output=./job_loglog/%jout_cpu.out
@@ -12,7 +12,6 @@
 echo ${SLURM_JOB_NODELIST}$
 echo start on $(data)
 
-# python get_nnunet_hard_sample2csv_training_data.py
-python /public_bme/data/xiongjl/inference_result/myself/confirm.py
+# python ...
 
 echo end on $(data) 
